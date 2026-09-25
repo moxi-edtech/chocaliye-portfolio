@@ -151,12 +151,9 @@ export default function Home() {
     const nodes = document.querySelectorAll<HTMLElement>("[data-reveal]");
     const observer = new IntersectionObserver(
       entries => entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
+        entry.target.classList.toggle("is-visible", entry.isIntersecting);
       }),
-      { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.16, rootMargin: "-6% 0px -10% 0px" }
     );
 
     nodes.forEach(node => observer.observe(node));
@@ -269,17 +266,24 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="statementBand">
-        <div className="shell statementTrack">
-          <span>AUTH</span>
-          <b>→</b>
-          <span>RLS</span>
-          <b>→</b>
-          <span>TENANT ISOLATION</span>
-          <b>→</b>
-          <span>OBSERVABILITY</span>
-          <b>→</b>
-          <span>PRODUCTION</span>
+      <section className="statementBand" aria-label="Engineering principles">
+        <div className="statementViewport">
+          <div className="statementTrack">
+            {[0, 1].map(group => (
+              <div className="statementGroup" aria-hidden={group === 1} key={group}>
+                <span>AUTH</span>
+                <i />
+                <span>RLS</span>
+                <i />
+                <span>TENANT ISOLATION</span>
+                <i />
+                <span>OBSERVABILITY</span>
+                <i />
+                <span>PRODUCTION</span>
+                <i />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
