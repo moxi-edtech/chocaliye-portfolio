@@ -312,3 +312,46 @@ a{color:inherit;text-decoration:none}
   html{scroll-behavior:auto}
   .hero-enter,.reveal{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}
 }
+
+
+.topbarRight{
+  display:flex;
+  align-items:center;
+  gap:34px;
+}
+
+.languageSwitch{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:var(--subtle);
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+
+.languageSwitch button{
+  appearance:none;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:inherit;
+  font:inherit;
+  letter-spacing:inherit;
+  cursor:pointer;
+  transition:color .18s ease;
+}
+
+.languageSwitch button:hover,
+.languageSwitch button.is-active{
+  color:var(--text);
+}
+
+.languageSwitch span{
+  opacity:.45;
+}
+
+@media(max-width:800px){
+  .topbarRight{gap:14px}
+  .languageSwitch{font-size:.68rem}
+}
