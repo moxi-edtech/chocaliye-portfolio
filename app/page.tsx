@@ -27,6 +27,8 @@ const copy = {
       problem: "Problema",
       build: "Construção",
       architecture: "Arquitetura",
+      technicalDetails: "Detalhes técnicos",
+      stack: "Stack",
     },
     expertise: {
       eyebrow: "Especialidades",
@@ -69,6 +71,8 @@ const copy = {
       problem: "Problem",
       build: "Build",
       architecture: "Architecture",
+      technicalDetails: "Technical details",
+      stack: "Stack",
     },
     expertise: {
       eyebrow: "Expertise",
@@ -305,13 +309,27 @@ export default function Home() {
                     <span>{t.work.build}</span>
                     <p>{project.build}</p>
                   </div>
-                  <div className="projectFact">
+                  <div className="projectFact projectArchitecture">
                     <span>{t.work.architecture}</span>
                     <p>{project.architecture}</p>
                   </div>
                 </div>
 
                 <p className="projectStack">{project.stack}</p>
+
+                <details className="projectTechDetails">
+                  <summary>{t.work.technicalDetails}</summary>
+                  <div className="projectTechBody">
+                    <div>
+                      <span>{t.work.architecture}</span>
+                      <p>{project.architecture}</p>
+                    </div>
+                    <div>
+                      <span>{t.work.stack}</span>
+                      <p>{project.stack}</p>
+                    </div>
+                  </div>
+                </details>
                 <a className="projectLink" href={project.href} target="_blank" rel="noreferrer">
                   {t.work.open}
                 </a>
