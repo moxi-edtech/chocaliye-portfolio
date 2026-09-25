@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Navbar } from "../layout/Navbar";
+import { heroImage } from "../../data/heroImage";
 
 export function Hero() {
   return (
@@ -22,13 +22,12 @@ export function Hero() {
         </div>
 
         <div className="heroPortrait">
-          <Image
-            src="/david-laptop.webp"
+          <img
+            src={heroImage}
             alt="David Chocaliye working with a laptop"
-            width={700}
-            height={700}
-            priority
-            sizes="(max-width: 800px) 100vw, 38vw"
+            width="640"
+            height="913"
+            loading="eager"
           />
           <aside className="signal">
             <span>Currently building</span>
