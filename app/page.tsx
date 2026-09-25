@@ -324,8 +324,11 @@ export default function Home() {
           </h2>
           <div className="contactLinks">
             <a href="mailto:katanhaboutjob@gmail.com">{t.contact.email}</a>
+            <a href="https://wa.me/5519981682877" target="_blank" rel="noreferrer">WhatsApp</a>
             <a href="https://linkedin.com/in/david-chocaliye-214429210" target="_blank" rel="noreferrer">LinkedIn</a>
             <a href="https://github.com/moxi-edtech" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.instagram.com/katanhadavid" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://www.threads.com/@katanhadavid" target="_blank" rel="noreferrer">Threads</a>
           </div>
         </div>
       </section>
@@ -352,8 +355,11 @@ export default function Home() {
           <div className="footerColumn">
             <span className="footerLabel">{locale === "pt" ? "CONTATO" : "CONTACT"}</span>
             <a href="mailto:katanhaboutjob@gmail.com">katanhaboutjob@gmail.com</a>
+            <a href="https://wa.me/5519981682877" target="_blank" rel="noreferrer">+55 19 98168-2877</a>
             <a href="https://linkedin.com/in/david-chocaliye-214429210" target="_blank" rel="noreferrer">LinkedIn</a>
             <a href="https://github.com/moxi-edtech" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.instagram.com/katanhadavid" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://www.threads.com/@katanhadavid" target="_blank" rel="noreferrer">Threads</a>
           </div>
 
           <div className="footerColumn footerMeta">
