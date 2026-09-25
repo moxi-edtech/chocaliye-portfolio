@@ -1,212 +1,210 @@
 "use client";
 
-import { useEffect, type CSSProperties } from "react";
+import { useEffect } from "react";
 import { heroImage } from "../data/heroImage";
 
 const projects = [
   {
-    label: "KLASSE",
-    title: "SaaS escolar multi-tenant em operação",
-    text: "Plataforma de gestão escolar desenvolvida e operada como produto real, atualmente utilizada por 5 escolas. Atuação como Founder & Tech Lead em arquitetura, produto, segurança, dados, deploy e evolução contínua.",
+    label: "01 / KLASSE",
+    title: "School infrastructure, rebuilt as software.",
+    text: "A multi-tenant school management platform designed for real operational use: enrollment, finance, academic workflows, AI-assisted queries and secure tenant isolation.",
     stack: "Next.js · TypeScript · PostgreSQL · Supabase · RLS · Vercel",
     href: "https://klasse.ao",
-    cta: "Ver KLASSE",
+    accent: "Education SaaS",
   },
   {
-    label: "FEXA",
-    title: "Automação comercial com IA para WhatsApp",
-    text: "Produto focado em atendimento e operação comercial multiempresa, com arquitetura de isolamento por tenant, agentes, integrações e fluxos de handoff humano.",
-    stack: "Node.js · PostgreSQL · Supabase · IA via API · WhatsApp",
+    label: "02 / FEXA",
+    title: "AI sales operations inside WhatsApp.",
+    text: "A commercial operations platform for qualification, customer service, catalog, orders, CRM, human handoff and follow-up — built around multi-company isolation.",
+    stack: "Node.js · PostgreSQL · Supabase · AI APIs · WhatsApp Cloud API",
     href: "https://fexabusiness.com",
-    cta: "Ver Fexa",
-  },
-  {
-    label: "BUSINESS EXPORT",
-    title: "Arquitetura para agente, CRM e aquisição",
-    text: "Monorepo estruturado para separar agente conversacional, CRM e landing, mantendo regras de domínio compartilhadas, tipagem e pipeline de dados consistente.",
-    stack: "TypeScript · Turborepo · Supabase · CRM · Agent architecture",
-    href: "#contact",
-    cta: "Falar sobre o case",
+    accent: "AI Commerce",
   },
 ];
 
 const skills = [
-  "Next.js", "React", "TypeScript", "PostgreSQL", "Supabase", "RLS / RBAC",
-  "Vercel", "Cloudflare", "OpenAI API", "Claude Code", "Codex", "WhatsApp Cloud API",
+  ["PRODUCT ENGINEERING", "Next.js · React · TypeScript · Product architecture"],
+  ["DATA & SECURITY", "PostgreSQL · Supabase · RLS · RBAC · Multi-tenancy"],
+  ["AI & AUTOMATION", "OpenAI API · Agents · Workflow automation · WhatsApp"],
+  ["INFRASTRUCTURE", "Vercel · Cloudflare · Microsoft 365 · Networking"],
 ];
-
-function delay(ms: number): CSSProperties {
-  return { "--delay": `${ms}ms` } as CSSProperties;
-}
 
 export default function Home() {
   useEffect(() => {
-    const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
-
+    const nodes = document.querySelectorAll<HTMLElement>("[data-reveal]");
     const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
+      entries => entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
         }
-      },
+      }),
       { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
     );
 
-    elements.forEach((element) => observer.observe(element));
+    nodes.forEach(node => observer.observe(node));
     return () => observer.disconnect();
   }, []);
 
   return (
     <main>
-      <section className="hero shell">
-        <nav className="hero-enter hero-enter-1">
-          <a className="brand" href="#">DC.</a>
-          <div className="navlinks">
-            <a href="#work">Work</a>
-            <a href="#expertise">Expertise</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-          </div>
+      <header className="topbar shell">
+        <a className="brand" href="#">DC.</a>
+        <nav className="navlinks">
+          <a href="#work">Work</a>
+          <a href="#expertise">Expertise</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
         </nav>
+      </header>
 
-        <div className="heroGrid">
-          <div className="heroCopy">
-            <p className="eyebrow hero-enter hero-enter-2">FULL STACK DEVELOPER · TECH LEAD</p>
-            <h1 className="hero-enter hero-enter-3">I build products that have to work outside the demo.</h1>
-            <p className="lead hero-enter hero-enter-4">
-              Sou David Chocaliye. Desenvolvo SaaS, sistemas multi-tenant,
-              integrações e agentes de IA — com experiência real em produto,
-              infraestrutura e operação.
+      <section className="hero shell">
+        <div className="heroStatement">
+          <p className="eyebrow hero-enter hero-enter-1">FULL STACK DEVELOPER · PRODUCT ENGINEER</p>
+          <h1 className="hero-enter hero-enter-2">
+            I build software that survives
+            <span> outside the demo.</span>
+          </h1>
+          <div className="heroBottom hero-enter hero-enter-3">
+            <p>
+              SaaS, multi-tenant systems, infrastructure and AI products —
+              engineered for actual operations, not just presentation.
             </p>
-            <div className="actions hero-enter hero-enter-5">
-              <a className="primary" href="#work">Ver projetos</a>
-              <a className="secondary" href="https://github.com/moxi-edtech">GitHub</a>
-            </div>
+            <a href="#work">Explore selected work ↓</a>
           </div>
+        </div>
 
-          <div className="heroPortrait hero-enter hero-enter-photo">
-            <img
-              src={heroImage}
-              alt="David Chocaliye working with a laptop"
-              width="640"
-              height="913"
-              loading="eager"
-            />
-            <aside className="signal">
-              <span>Currently building</span>
-              <strong>KLASSE + Fexa</strong>
-              <p>Software, infrastructure, AI and product.</p>
-            </aside>
+        <div className="heroVisual hero-enter hero-enter-photo">
+          <img src={heroImage} alt="David Chocaliye working with a laptop" />
+          <div className="heroCaption">
+            <span>David Chocaliye</span>
+            <span>São Paulo · Brazil</span>
           </div>
         </div>
       </section>
 
-      <section id="work" className="shell section">
-        <div className="sectionHead reveal reveal-up" data-reveal>
+      <section className="manifesto shell reveal reveal-up" data-reveal>
+        <p className="manifestoIndex">00</p>
+        <p className="manifestoText">
+          AI can accelerate the build.
+          <span> Production still needs engineering.</span>
+        </p>
+      </section>
+
+      <section id="work" className="work">
+        <div className="shell workIntro reveal reveal-up" data-reveal>
           <p className="eyebrow">SELECTED WORK</p>
-          <h2>Produtos construídos para operação real.</h2>
+          <h2>Not cards. Products.</h2>
         </div>
 
-        <div className="cases">
-          {projects.map((project, index) => {
-            const hasLivePreview = project.href.startsWith("http");
-            return (
-              <article
-                className="case reveal reveal-up"
-                data-reveal
-                style={delay(index * 110)}
-                key={project.label}
-              >
-                <div className="caseIndex">0{index + 1}</div>
-                <div className="caseContent">
-                  <div className="caseCopy">
-                    <p className="eyebrow">{project.label}</p>
-                    <h3>{project.title}</h3>
-                    <p>{project.text}</p>
-                    <div className="stack">{project.stack}</div>
-                    <a href={project.href} target={hasLivePreview ? "_blank" : undefined} rel={hasLivePreview ? "noreferrer" : undefined}>
-                      {project.cta} ↗
-                    </a>
-                  </div>
+        {projects.map((project, index) => (
+          <article className={`projectStory ${index % 2 ? "projectReverse" : ""}`} key={project.label}>
+            <div className="shell projectGrid">
+              <div className="projectMeta reveal reveal-left" data-reveal>
+                <p className="projectNumber">{project.label}</p>
+                <p className="projectAccent">{project.accent}</p>
+                <h3>{project.title}</h3>
+                <p className="projectDescription">{project.text}</p>
+                <p className="projectStack">{project.stack}</p>
+                <a className="projectLink" href={project.href} target="_blank" rel="noreferrer">
+                  Open live product ↗
+                </a>
+              </div>
 
-                  {hasLivePreview && (
-                    <div className="sitePreview reveal reveal-right" data-reveal style={delay(120 + index * 90)} aria-label={`Live preview of ${project.label}`}>
-                      <div className="previewChrome" aria-hidden="true">
-                        <span /><span /><span />
-                        <small>{project.href.replace(/^https?:\/\//, "")}</small>
-                      </div>
-                      <iframe
-                        src={project.href}
-                        title={`${project.label} website preview`}
-                        loading="lazy"
-                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                      />
-                      <a className="previewFallback" href={project.href} target="_blank" rel="noreferrer">
-                        Open live site ↗
-                      </a>
-                    </div>
-                  )}
+              <div className="projectCanvas reveal reveal-right" data-reveal>
+                <div className="browserBar">
+                  <div><i /><i /><i /></div>
+                  <span>{project.href.replace(/^https?:\/\//, "")}</span>
                 </div>
-              </article>
-            );
-          })}
+                <iframe
+                  src={project.href}
+                  title={`${project.accent} live preview`}
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+                <a className="canvasFallback" href={project.href} target="_blank" rel="noreferrer">
+                  View site ↗
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="statementBand">
+        <div className="shell statementTrack">
+          <span>AUTH</span>
+          <b>→</b>
+          <span>RLS</span>
+          <b>→</b>
+          <span>TENANT ISOLATION</span>
+          <b>→</b>
+          <span>OBSERVABILITY</span>
+          <b>→</b>
+          <span>PRODUCTION</span>
         </div>
       </section>
 
-      <section id="expertise" className="shell section">
-        <div className="sectionHead reveal reveal-up" data-reveal>
+      <section id="expertise" className="shell expertiseSection">
+        <div className="expertiseLead reveal reveal-up" data-reveal>
           <p className="eyebrow">EXPERTISE</p>
-          <h2>Da interface à operação.</h2>
+          <h2>From interface to infrastructure.</h2>
         </div>
-        <div className="skillGrid">
-          {skills.map((skill, index) => (
-            <span
-              key={skill}
-              className="reveal reveal-up"
-              data-reveal
-              style={delay(index * 45)}
-            >
-              {skill}
-            </span>
+
+        <div className="expertiseGrid">
+          {skills.map(([title, text], index) => (
+            <article className="expertiseItem reveal reveal-up" data-reveal key={title}>
+              <span>0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
           ))}
         </div>
       </section>
 
-      <section id="about" className="shell section about">
-        <div className="reveal reveal-left" data-reveal>
-          <p className="eyebrow">ABOUT</p>
-          <h2>Software com visão de produto.</h2>
-        </div>
-        <div className="aboutCopy reveal reveal-right" data-reveal style={delay(100)}>
-          <p>
-            Minha base profissional também inclui infraestrutura corporativa,
-            redes, Microsoft 365 e automação. Isso influencia como penso
-            software: segurança, operação, observabilidade e manutenção fazem
-            parte do produto desde o início.
-          </p>
-          <p>
-            Além de engenharia, trabalho com design gráfico, identidade visual,
-            UI/UX, comunicação de produto, marketing e treinamento comercial.
-          </p>
+      <section id="about" className="aboutEditorial">
+        <div className="shell aboutGrid">
+          <div className="aboutSticky reveal reveal-left" data-reveal>
+            <p className="eyebrow">ABOUT</p>
+            <h2>I think about software as an operating system for the business.</h2>
+          </div>
+
+          <div className="aboutFlow reveal reveal-right" data-reveal>
+            <p className="aboutBig">
+              Product, infrastructure, security and operations are not separate concerns.
+            </p>
+            <p>
+              My background across software and corporate infrastructure shapes how I build:
+              authentication, observability, data boundaries, deployment and maintenance are part
+              of the product from day one.
+            </p>
+            <p>
+              I also work across product communication, interface decisions and go-to-market
+              execution — because software only matters when people can understand, adopt and operate it.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section id="contact" className="shell contact reveal reveal-up" data-reveal>
-        <p className="eyebrow">CONTACT</p>
-        <h2>Quer construir algo que precisa funcionar de verdade?</h2>
-        <div className="actions">
-          <a className="primary" href="mailto:katanhaboutjob@gmail.com">Enviar e-mail</a>
-          <a className="secondary" href="https://linkedin.com/in/david-chocaliye-214429210">LinkedIn</a>
+      <section id="contact" className="contactStage">
+        <div className="shell contactInner reveal reveal-up" data-reveal>
+          <p className="eyebrow">GET IN TOUCH</p>
+          <h2>
+            Have something
+            <span> worth building?</span>
+          </h2>
+          <div className="contactLinks">
+            <a href="mailto:katanhaboutjob@gmail.com">Email ↗</a>
+            <a href="https://linkedin.com/in/david-chocaliye-214429210" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <a href="https://github.com/moxi-edtech" target="_blank" rel="noreferrer">GitHub ↗</a>
+          </div>
         </div>
       </section>
 
-      <footer className="shell reveal reveal-up" data-reveal>
-        <span>David Chocaliye</span>
-        <span>Full Stack · Tech Lead · Product</span>
+      <footer className="shell footer">
+        <span>David Chocaliye © 2026</span>
+        <span>Full Stack · Product Engineering · AI</span>
       </footer>
     </main>
   );
