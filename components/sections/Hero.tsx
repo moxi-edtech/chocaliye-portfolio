@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Navbar } from "../layout/Navbar";
 
 export function Hero() {
@@ -6,7 +7,7 @@ export function Hero() {
       <Navbar />
 
       <div className="heroGrid">
-        <div>
+        <div className="heroCopy">
           <p className="eyebrow">FULL STACK DEVELOPER · TECH LEAD</p>
           <h1>I build products that have to work outside the demo.</h1>
           <p className="lead">
@@ -20,11 +21,21 @@ export function Hero() {
           </div>
         </div>
 
-        <aside className="signal">
-          <span>Currently building</span>
-          <strong>KLASSE + Fexa</strong>
-          <p>Software, infrastructure, AI and product.</p>
-        </aside>
+        <div className="heroPortrait">
+          <Image
+            src="/david-laptop.webp"
+            alt="David Chocaliye working with a laptop"
+            width={700}
+            height={700}
+            priority
+            sizes="(max-width: 800px) 100vw, 38vw"
+          />
+          <aside className="signal">
+            <span>Currently building</span>
+            <strong>KLASSE + Fexa</strong>
+            <p>Software, infrastructure, AI and product.</p>
+          </aside>
+        </div>
       </div>
     </section>
   );
