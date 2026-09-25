@@ -1,34 +1,152 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const projects = [
-  {
-    label: "01 / KLASSE",
-    title: "School infrastructure, rebuilt as software.",
-    text: "A multi-tenant school management platform designed for real operational use: enrollment, finance, academic workflows, AI-assisted queries and secure tenant isolation.",
-    stack: "Next.js · TypeScript · PostgreSQL · Supabase · RLS · Vercel",
-    href: "https://klasse.ao",
-    accent: "Education SaaS",
-  },
-  {
-    label: "02 / FEXA",
-    title: "AI sales operations inside WhatsApp.",
-    text: "A commercial operations platform for qualification, customer service, catalog, orders, CRM, human handoff and follow-up — built around multi-company isolation.",
-    stack: "Node.js · PostgreSQL · Supabase · AI APIs · WhatsApp Cloud API",
-    href: "https://fexabusiness.com",
-    accent: "AI Commerce",
-  },
-];
+type Locale = "pt" | "en";
 
-const skills = [
-  ["PRODUCT ENGINEERING", "Next.js · React · TypeScript · Product architecture"],
-  ["DATA & SECURITY", "PostgreSQL · Supabase · RLS · RBAC · Multi-tenancy"],
-  ["AI & AUTOMATION", "OpenAI API · Agents · Workflow automation · WhatsApp"],
-  ["INFRASTRUCTURE", "Vercel · Cloudflare · Microsoft 365 · Networking"],
-];
+const copy = {
+  pt: {
+    nav: { work: "Projetos", expertise: "Especialidades", about: "Sobre", contact: "Contato" },
+    hero: {
+      eyebrow: "DESENVOLVEDOR FULL STACK · PRODUCT ENGINEER",
+      title: "Construo software para",
+      titleAccent: " operação real.",
+      body: "SaaS, sistemas multi-tenant, infraestrutura e produtos com IA — pensados para funcionar no dia a dia, não apenas numa demonstração.",
+      cta: "Ver projetos ↓",
+      location: "São Paulo · Brasil",
+    },
+    manifesto: {
+      first: "IA acelera a construção.",
+      second: " Produção ainda exige engenharia.",
+    },
+    work: {
+      eyebrow: "PROJETOS",
+      title: "Produtos em operação.",
+      open: "Abrir produto ↗",
+      view: "Ver site ↗",
+    },
+    expertise: {
+      eyebrow: "ESPECIALIDADES",
+      title: "Da interface à infraestrutura.",
+    },
+    about: {
+      eyebrow: "SOBRE",
+      title: "Penso software como parte da operação do negócio.",
+      big: "Produto, infraestrutura, segurança e operação não são assuntos separados.",
+      p1: "Minha experiência entre software e infraestrutura corporativa influencia como construo: autenticação, observabilidade, limites de dados, deploy e manutenção fazem parte do produto desde o início.",
+      p2: "Também atuo em decisões de interface, comunicação de produto e execução de go-to-market — porque software só gera valor quando as pessoas conseguem entender, adotar e operar.",
+    },
+    contact: {
+      eyebrow: "CONTATO",
+      first: "Tem algo",
+      second: " que vale a pena construir?",
+      email: "E-mail ↗",
+    },
+    footer: "Full Stack · Product Engineering · IA",
+  },
+  en: {
+    nav: { work: "Work", expertise: "Expertise", about: "About", contact: "Contact" },
+    hero: {
+      eyebrow: "FULL STACK DEVELOPER · PRODUCT ENGINEER",
+      title: "I build software for",
+      titleAccent: " real operations.",
+      body: "SaaS, multi-tenant systems, infrastructure and AI products — designed to work in day-to-day operations, not just in a demo.",
+      cta: "Explore selected work ↓",
+      location: "São Paulo · Brazil",
+    },
+    manifesto: {
+      first: "AI accelerates the build.",
+      second: " Production still needs engineering.",
+    },
+    work: {
+      eyebrow: "SELECTED WORK",
+      title: "Products in operation.",
+      open: "Open live product ↗",
+      view: "View site ↗",
+    },
+    expertise: {
+      eyebrow: "EXPERTISE",
+      title: "From interface to infrastructure.",
+    },
+    about: {
+      eyebrow: "ABOUT",
+      title: "I think about software as part of business operations.",
+      big: "Product, infrastructure, security and operations are not separate concerns.",
+      p1: "My background across software and corporate infrastructure shapes how I build: authentication, observability, data boundaries, deployment and maintenance are part of the product from day one.",
+      p2: "I also work across interface decisions, product communication and go-to-market execution — because software only creates value when people can understand, adopt and operate it.",
+    },
+    contact: {
+      eyebrow: "GET IN TOUCH",
+      first: "Have something",
+      second: " worth building?",
+      email: "Email ↗",
+    },
+    footer: "Full Stack · Product Engineering · AI",
+  },
+} as const;
+
+const projects = {
+  pt: [
+    {
+      label: "01 / KLASSE",
+      title: "Gestão escolar construída para a realidade das escolas angolanas.",
+      text: "Plataforma escolar multi-tenant para matrícula, finanças, operação acadêmica, consultas com IA e isolamento seguro entre instituições.",
+      stack: "Next.js · TypeScript · PostgreSQL · Supabase · RLS · Vercel",
+      href: "https://klasse.ao",
+      accent: "SaaS para educação",
+    },
+    {
+      label: "02 / FEXA",
+      title: "Operação comercial com IA dentro do WhatsApp.",
+      text: "Plataforma para qualificação, atendimento, catálogo, pedidos, CRM, handoff humano e follow-up, com arquitetura multiempresa.",
+      stack: "Node.js · PostgreSQL · Supabase · APIs de IA · WhatsApp Cloud API",
+      href: "https://fexabusiness.com",
+      accent: "IA para vendas",
+    },
+  ],
+  en: [
+    {
+      label: "01 / KLASSE",
+      title: "School management built for the reality of Angolan schools.",
+      text: "A multi-tenant school platform for enrollment, finance, academic operations, AI-assisted queries and secure tenant isolation.",
+      stack: "Next.js · TypeScript · PostgreSQL · Supabase · RLS · Vercel",
+      href: "https://klasse.ao",
+      accent: "Education SaaS",
+    },
+    {
+      label: "02 / FEXA",
+      title: "AI-assisted commercial operations inside WhatsApp.",
+      text: "A platform for qualification, customer service, catalog, orders, CRM, human handoff and follow-up, built around multi-company isolation.",
+      stack: "Node.js · PostgreSQL · Supabase · AI APIs · WhatsApp Cloud API",
+      href: "https://fexabusiness.com",
+      accent: "AI Commerce",
+    },
+  ],
+} as const;
+
+const skills = {
+  pt: [
+    ["PRODUCT ENGINEERING", "Next.js · React · TypeScript · Arquitetura de produto"],
+    ["DADOS & SEGURANÇA", "PostgreSQL · Supabase · RLS · RBAC · Multi-tenancy"],
+    ["IA & AUTOMAÇÃO", "OpenAI API · Agentes · Automação de fluxos · WhatsApp"],
+    ["INFRAESTRUTURA", "Vercel · Cloudflare · Microsoft 365 · Redes"],
+  ],
+  en: [
+    ["PRODUCT ENGINEERING", "Next.js · React · TypeScript · Product architecture"],
+    ["DATA & SECURITY", "PostgreSQL · Supabase · RLS · RBAC · Multi-tenancy"],
+    ["AI & AUTOMATION", "OpenAI API · Agents · Workflow automation · WhatsApp"],
+    ["INFRASTRUCTURE", "Vercel · Cloudflare · Microsoft 365 · Networking"],
+  ],
+} as const;
 
 export default function Home() {
+  const [locale, setLocale] = useState<Locale>("pt");
+  const t = copy[locale];
+
+  useEffect(() => {
+    document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
+  }, [locale]);
+
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>("[data-reveal]");
     const observer = new IntersectionObserver(
@@ -49,35 +167,55 @@ export default function Home() {
     <main>
       <header className="topbar shell">
         <a className="brand" href="#">DC.</a>
-        <nav className="navlinks">
-          <a href="#work">Work</a>
-          <a href="#expertise">Expertise</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </nav>
+
+        <div className="topbarRight">
+          <nav className="navlinks">
+            <a href="#work">{t.nav.work}</a>
+            <a href="#expertise">{t.nav.expertise}</a>
+            <a href="#about">{t.nav.about}</a>
+            <a href="#contact">{t.nav.contact}</a>
+          </nav>
+
+          <div className="languageSwitch" aria-label="Selecionar idioma">
+            <button
+              type="button"
+              className={locale === "pt" ? "is-active" : ""}
+              onClick={() => setLocale("pt")}
+              aria-pressed={locale === "pt"}
+            >
+              PT
+            </button>
+            <span>/</span>
+            <button
+              type="button"
+              className={locale === "en" ? "is-active" : ""}
+              onClick={() => setLocale("en")}
+              aria-pressed={locale === "en"}
+            >
+              EN
+            </button>
+          </div>
+        </div>
       </header>
 
       <section className="hero shell">
         <div className="heroStatement">
-          <p className="eyebrow hero-enter hero-enter-1">FULL STACK DEVELOPER · PRODUCT ENGINEER</p>
+          <p className="eyebrow hero-enter hero-enter-1">{t.hero.eyebrow}</p>
           <h1 className="hero-enter hero-enter-2">
-            I build software that survives
-            <span> outside the demo.</span>
+            {t.hero.title}
+            <span>{t.hero.titleAccent}</span>
           </h1>
           <div className="heroBottom hero-enter hero-enter-3">
-            <p>
-              SaaS, multi-tenant systems, infrastructure and AI products —
-              engineered for actual operations, not just presentation.
-            </p>
-            <a href="#work">Explore selected work ↓</a>
+            <p>{t.hero.body}</p>
+            <a href="#work">{t.hero.cta}</a>
           </div>
         </div>
 
         <div className="heroVisual hero-enter hero-enter-photo">
-          <img src="/david-hero-chair.webp" alt="David Chocaliye working with a laptop" />
+          <img src="/david-hero-chair.webp" alt="David Chocaliye com um laptop" />
           <div className="heroCaption">
             <span>David Chocaliye</span>
-            <span>São Paulo · Brazil</span>
+            <span>{t.hero.location}</span>
           </div>
         </div>
       </section>
@@ -85,18 +223,18 @@ export default function Home() {
       <section className="manifesto shell reveal reveal-up" data-reveal>
         <p className="manifestoIndex">00</p>
         <p className="manifestoText">
-          AI can accelerate the build.
-          <span> Production still needs engineering.</span>
+          {t.manifesto.first}
+          <span>{t.manifesto.second}</span>
         </p>
       </section>
 
       <section id="work" className="work">
         <div className="shell workIntro reveal reveal-up" data-reveal>
-          <p className="eyebrow">SELECTED WORK</p>
-          <h2>Not cards. Products.</h2>
+          <p className="eyebrow">{t.work.eyebrow}</p>
+          <h2>{t.work.title}</h2>
         </div>
 
-        {projects.map((project, index) => (
+        {projects[locale].map((project, index) => (
           <article className={`projectStory ${index % 2 ? "projectReverse" : ""}`} key={project.label}>
             <div className="shell projectGrid">
               <div className="projectMeta reveal reveal-left" data-reveal>
@@ -106,7 +244,7 @@ export default function Home() {
                 <p className="projectDescription">{project.text}</p>
                 <p className="projectStack">{project.stack}</p>
                 <a className="projectLink" href={project.href} target="_blank" rel="noreferrer">
-                  Open live product ↗
+                  {t.work.open}
                 </a>
               </div>
 
@@ -123,7 +261,7 @@ export default function Home() {
                   referrerPolicy="strict-origin-when-cross-origin"
                 />
                 <a className="canvasFallback" href={project.href} target="_blank" rel="noreferrer">
-                  View site ↗
+                  {t.work.view}
                 </a>
               </div>
             </div>
@@ -147,12 +285,12 @@ export default function Home() {
 
       <section id="expertise" className="shell expertiseSection">
         <div className="expertiseLead reveal reveal-up" data-reveal>
-          <p className="eyebrow">EXPERTISE</p>
-          <h2>From interface to infrastructure.</h2>
+          <p className="eyebrow">{t.expertise.eyebrow}</p>
+          <h2>{t.expertise.title}</h2>
         </div>
 
         <div className="expertiseGrid">
-          {skills.map(([title, text], index) => (
+          {skills[locale].map(([title, text], index) => (
             <article className="expertiseItem reveal reveal-up" data-reveal key={title}>
               <span>0{index + 1}</span>
               <h3>{title}</h3>
@@ -165,36 +303,27 @@ export default function Home() {
       <section id="about" className="aboutEditorial">
         <div className="shell aboutGrid">
           <div className="aboutSticky reveal reveal-left" data-reveal>
-            <p className="eyebrow">ABOUT</p>
-            <h2>I think about software as an operating system for the business.</h2>
+            <p className="eyebrow">{t.about.eyebrow}</p>
+            <h2>{t.about.title}</h2>
           </div>
 
           <div className="aboutFlow reveal reveal-right" data-reveal>
-            <p className="aboutBig">
-              Product, infrastructure, security and operations are not separate concerns.
-            </p>
-            <p>
-              My background across software and corporate infrastructure shapes how I build:
-              authentication, observability, data boundaries, deployment and maintenance are part
-              of the product from day one.
-            </p>
-            <p>
-              I also work across product communication, interface decisions and go-to-market
-              execution — because software only matters when people can understand, adopt and operate it.
-            </p>
+            <p className="aboutBig">{t.about.big}</p>
+            <p>{t.about.p1}</p>
+            <p>{t.about.p2}</p>
           </div>
         </div>
       </section>
 
       <section id="contact" className="contactStage">
         <div className="shell contactInner reveal reveal-up" data-reveal>
-          <p className="eyebrow">GET IN TOUCH</p>
+          <p className="eyebrow">{t.contact.eyebrow}</p>
           <h2>
-            Have something
-            <span> worth building?</span>
+            {t.contact.first}
+            <span>{t.contact.second}</span>
           </h2>
           <div className="contactLinks">
-            <a href="mailto:katanhaboutjob@gmail.com">Email ↗</a>
+            <a href="mailto:katanhaboutjob@gmail.com">{t.contact.email}</a>
             <a href="https://linkedin.com/in/david-chocaliye-214429210" target="_blank" rel="noreferrer">LinkedIn ↗</a>
             <a href="https://github.com/moxi-edtech" target="_blank" rel="noreferrer">GitHub ↗</a>
           </div>
@@ -203,7 +332,7 @@ export default function Home() {
 
       <footer className="shell footer">
         <span>David Chocaliye © 2026</span>
-        <span>Full Stack · Product Engineering · AI</span>
+        <span>{t.footer}</span>
       </footer>
     </main>
   );
