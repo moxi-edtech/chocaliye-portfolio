@@ -22,7 +22,7 @@ const copy = {
     work: {
       eyebrow: "PROJETOS",
       title: "Produtos em operação.",
-      open: "Abrir produto",
+      open: "Ver projeto",
       view: "Ver site",
     },
     expertise: {
@@ -61,7 +61,7 @@ const copy = {
     work: {
       eyebrow: "SELECTED WORK",
       title: "Products in operation.",
-      open: "Open live product",
+      open: "View project",
       view: "View site",
     },
     expertise: {
