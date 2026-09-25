@@ -24,6 +24,9 @@ const copy = {
       title: "Produtos em operação.",
       open: "Ver projeto",
       view: "Ver site",
+      problem: "PROBLEMA",
+      build: "CONSTRUÇÃO",
+      architecture: "ARQUITETURA",
     },
     expertise: {
       eyebrow: "ESPECIALIDADES",
@@ -63,6 +66,9 @@ const copy = {
       title: "Products in operation.",
       open: "View project",
       view: "View site",
+      problem: "PROBLEM",
+      build: "BUILD",
+      architecture: "ARCHITECTURE",
     },
     expertise: {
       eyebrow: "EXPERTISE",
@@ -91,6 +97,9 @@ const projects = {
       label: "01 / KLASSE",
       title: "Gestão escolar construída para a realidade das escolas angolanas.",
       text: "Plataforma escolar multi-tenant para matrícula, finanças, operação acadêmica, consultas com IA e isolamento seguro entre instituições.",
+      problem: "Processos acadêmicos e financeiros dispersos entre papel, WhatsApp e rotinas manuais, com pouca visibilidade operacional.",
+      build: "Matrícula, propinas, notas, portais por perfil e consultas operacionais com IA dentro de uma única plataforma.",
+      architecture: "Multi-tenant · Supabase Auth · PostgreSQL · RLS por escola · Next.js · Vercel",
       stack: "Next.js · TypeScript · PostgreSQL · Supabase · RLS · Vercel",
       href: "https://klasse.ao",
       accent: "SaaS para educação",
@@ -99,6 +108,9 @@ const projects = {
       label: "02 / FEXA",
       title: "Operação comercial com IA dentro do WhatsApp.",
       text: "Plataforma para qualificação, atendimento, catálogo, pedidos, CRM, handoff humano e follow-up, com arquitetura multiempresa.",
+      problem: "Atendimento comercial no WhatsApp exige triagem constante, contexto do cliente e continuidade quando a conversa passa para uma pessoa.",
+      build: "Qualificação automática, catálogo, registro de pedidos, CRM, handoff humano, follow-ups e relatórios no mesmo fluxo comercial.",
+      architecture: "WhatsApp Cloud API · IA · PostgreSQL · Supabase · isolamento multiempresa",
       stack: "Node.js · PostgreSQL · Supabase · APIs de IA · WhatsApp Cloud API",
       href: "https://fexabusiness.com",
       accent: "IA para vendas",
@@ -109,6 +121,9 @@ const projects = {
       label: "01 / KLASSE",
       title: "School management built for the reality of Angolan schools.",
       text: "A multi-tenant school platform for enrollment, finance, academic operations, AI-assisted queries and secure tenant isolation.",
+      problem: "Academic and financial workflows spread across paper, WhatsApp and manual routines, with limited operational visibility.",
+      build: "Enrollment, tuition, grades, role-based portals and AI-assisted operational queries inside one platform.",
+      architecture: "Multi-tenant · Supabase Auth · PostgreSQL · school-level RLS · Next.js · Vercel",
       stack: "Next.js · TypeScript · PostgreSQL · Supabase · RLS · Vercel",
       href: "https://klasse.ao",
       accent: "Education SaaS",
@@ -117,6 +132,9 @@ const projects = {
       label: "02 / FEXA",
       title: "AI-assisted commercial operations inside WhatsApp.",
       text: "A platform for qualification, customer service, catalog, orders, CRM, human handoff and follow-up, built around multi-company isolation.",
+      problem: "WhatsApp sales operations require constant triage, customer context and continuity when a conversation moves to a human.",
+      build: "Automated qualification, catalog, order capture, CRM, human handoff, follow-ups and reporting in the same commercial flow.",
+      architecture: "WhatsApp Cloud API · AI · PostgreSQL · Supabase · multi-company isolation",
       stack: "Node.js · PostgreSQL · Supabase · AI APIs · WhatsApp Cloud API",
       href: "https://fexabusiness.com",
       accent: "AI Commerce",
@@ -239,6 +257,22 @@ export default function Home() {
                 <p className="projectAccent">{project.accent}</p>
                 <h3>{project.title}</h3>
                 <p className="projectDescription">{project.text}</p>
+
+                <div className="projectFacts">
+                  <div className="projectFact">
+                    <span>{t.work.problem}</span>
+                    <p>{project.problem}</p>
+                  </div>
+                  <div className="projectFact">
+                    <span>{t.work.build}</span>
+                    <p>{project.build}</p>
+                  </div>
+                  <div className="projectFact">
+                    <span>{t.work.architecture}</span>
+                    <p>{project.architecture}</p>
+                  </div>
+                </div>
+
                 <p className="projectStack">{project.stack}</p>
                 <a className="projectLink" href={project.href} target="_blank" rel="noreferrer">
                   {t.work.open}
