@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { heroImage } from "../data/heroImage";
 
 const projects = [
   {
@@ -75,7 +74,7 @@ export default function Home() {
         </div>
 
         <div className="heroVisual hero-enter hero-enter-photo">
-          <img src={heroImage} alt="David Chocaliye working with a laptop" />
+          <img src="/david-hero-chair.webp" alt="David Chocaliye working with a laptop" />
           <div className="heroCaption">
             <span>David Chocaliye</span>
             <span>São Paulo · Brazil</span>
