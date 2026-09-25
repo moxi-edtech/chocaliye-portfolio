@@ -12,7 +12,7 @@ const copy = {
       title: "Construo software para",
       titleAccent: " operação real.",
       body: "SaaS, sistemas multi-tenant, infraestrutura e produtos com IA — pensados para funcionar no dia a dia, não apenas numa demonstração.",
-      cta: "Ver projetos ↓",
+      cta: "Ver projetos",
       location: "São Paulo · Brasil",
     },
     manifesto: {
@@ -22,8 +22,8 @@ const copy = {
     work: {
       eyebrow: "PROJETOS",
       title: "Produtos em operação.",
-      open: "Abrir produto ↗",
-      view: "Ver site ↗",
+      open: "Abrir produto",
+      view: "Ver site",
     },
     expertise: {
       eyebrow: "ESPECIALIDADES",
@@ -40,7 +40,7 @@ const copy = {
       eyebrow: "CONTATO",
       first: "Tem algo",
       second: " que vale a pena construir?",
-      email: "E-mail ↗",
+      email: "E-mail",
     },
     footer: "Full Stack · Product Engineering · IA",
   },
@@ -51,7 +51,7 @@ const copy = {
       title: "I build software for",
       titleAccent: " real operations.",
       body: "SaaS, multi-tenant systems, infrastructure and AI products — designed to work in day-to-day operations, not just in a demo.",
-      cta: "Explore selected work ↓",
+      cta: "Explore selected work",
       location: "São Paulo · Brazil",
     },
     manifesto: {
@@ -61,8 +61,8 @@ const copy = {
     work: {
       eyebrow: "SELECTED WORK",
       title: "Products in operation.",
-      open: "Open live product ↗",
-      view: "View site ↗",
+      open: "Open live product",
+      view: "View site",
     },
     expertise: {
       eyebrow: "EXPERTISE",
@@ -79,7 +79,7 @@ const copy = {
       eyebrow: "GET IN TOUCH",
       first: "Have something",
       second: " worth building?",
-      email: "Email ↗",
+      email: "Email",
     },
     footer: "Full Stack · Product Engineering · AI",
   },
@@ -324,15 +324,49 @@ export default function Home() {
           </h2>
           <div className="contactLinks">
             <a href="mailto:katanhaboutjob@gmail.com">{t.contact.email}</a>
-            <a href="https://linkedin.com/in/david-chocaliye-214429210" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a href="https://github.com/moxi-edtech" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a href="https://linkedin.com/in/david-chocaliye-214429210" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/moxi-edtech" target="_blank" rel="noreferrer">GitHub</a>
           </div>
         </div>
       </section>
 
-      <footer className="shell footer">
-        <span>David Chocaliye © 2026</span>
-        <span>{t.footer}</span>
+      <footer className="siteFooter">
+        <div className="shell footerGrid">
+          <div className="footerIntro">
+            <a className="footerBrand" href="#">David Chocaliye</a>
+            <p>
+              {locale === "pt"
+                ? "Desenvolvimento de produtos digitais, SaaS, infraestrutura e automação com IA."
+                : "Digital products, SaaS, infrastructure and AI automation."}
+            </p>
+          </div>
+
+          <div className="footerColumn">
+            <span className="footerLabel">{locale === "pt" ? "NAVEGAÇÃO" : "NAVIGATION"}</span>
+            <a href="#work">{t.nav.work}</a>
+            <a href="#expertise">{t.nav.expertise}</a>
+            <a href="#about">{t.nav.about}</a>
+            <a href="#contact">{t.nav.contact}</a>
+          </div>
+
+          <div className="footerColumn">
+            <span className="footerLabel">{locale === "pt" ? "CONTATO" : "CONTACT"}</span>
+            <a href="mailto:katanhaboutjob@gmail.com">katanhaboutjob@gmail.com</a>
+            <a href="https://linkedin.com/in/david-chocaliye-214429210" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/moxi-edtech" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+
+          <div className="footerColumn footerMeta">
+            <span className="footerLabel">{locale === "pt" ? "BASE" : "BASED IN"}</span>
+            <span>São Paulo · Brasil</span>
+            <span>{t.footer}</span>
+          </div>
+        </div>
+
+        <div className="shell footerBottom">
+          <span>© 2026 David Chocaliye</span>
+          <a href="#">Voltar ao topo</a>
+        </div>
       </footer>
     </main>
   );
