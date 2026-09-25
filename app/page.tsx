@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, type CSSProperties } from "react";
 import { heroImage } from "../data/heroImage";
 
 const projects = [
@@ -32,11 +35,34 @@ const skills = [
   "Vercel", "Cloudflare", "OpenAI API", "Claude Code", "Codex", "WhatsApp Cloud API",
 ];
 
+function delay(ms: number): CSSProperties {
+  return { "--delay": `${ms}ms` } as CSSProperties;
+}
+
 export default function Home() {
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main>
       <section className="hero shell">
-        <nav>
+        <nav className="hero-enter hero-enter-1">
           <a className="brand" href="#">DC.</a>
           <div className="navlinks">
             <a href="#work">Work</a>
@@ -48,20 +74,20 @@ export default function Home() {
 
         <div className="heroGrid">
           <div className="heroCopy">
-            <p className="eyebrow">FULL STACK DEVELOPER · TECH LEAD</p>
-            <h1>I build products that have to work outside the demo.</h1>
-            <p className="lead">
+            <p className="eyebrow hero-enter hero-enter-2">FULL STACK DEVELOPER · TECH LEAD</p>
+            <h1 className="hero-enter hero-enter-3">I build products that have to work outside the demo.</h1>
+            <p className="lead hero-enter hero-enter-4">
               Sou David Chocaliye. Desenvolvo SaaS, sistemas multi-tenant,
               integrações e agentes de IA — com experiência real em produto,
               infraestrutura e operação.
             </p>
-            <div className="actions">
+            <div className="actions hero-enter hero-enter-5">
               <a className="primary" href="#work">Ver projetos</a>
               <a className="secondary" href="https://github.com/moxi-edtech">GitHub</a>
             </div>
           </div>
 
-          <div className="heroPortrait">
+          <div className="heroPortrait hero-enter hero-enter-photo">
             <img
               src={heroImage}
               alt="David Chocaliye working with a laptop"
@@ -79,15 +105,21 @@ export default function Home() {
       </section>
 
       <section id="work" className="shell section">
-        <div className="sectionHead">
+        <div className="sectionHead reveal reveal-up" data-reveal>
           <p className="eyebrow">SELECTED WORK</p>
           <h2>Produtos construídos para operação real.</h2>
         </div>
+
         <div className="cases">
           {projects.map((project, index) => {
             const hasLivePreview = project.href.startsWith("http");
             return (
-              <article className="case" key={project.label}>
+              <article
+                className="case reveal reveal-up"
+                data-reveal
+                style={delay(index * 110)}
+                key={project.label}
+              >
                 <div className="caseIndex">0{index + 1}</div>
                 <div className="caseContent">
                   <div className="caseCopy">
@@ -99,8 +131,9 @@ export default function Home() {
                       {project.cta} ↗
                     </a>
                   </div>
+
                   {hasLivePreview && (
-                    <div className="sitePreview" aria-label={`Live preview of ${project.label}`}>
+                    <div className="sitePreview reveal reveal-right" data-reveal style={delay(120 + index * 90)} aria-label={`Live preview of ${project.label}`}>
                       <div className="previewChrome" aria-hidden="true">
                         <span /><span /><span />
                         <small>{project.href.replace(/^https?:\/\//, "")}</small>
@@ -125,21 +158,30 @@ export default function Home() {
       </section>
 
       <section id="expertise" className="shell section">
-        <div className="sectionHead">
+        <div className="sectionHead reveal reveal-up" data-reveal>
           <p className="eyebrow">EXPERTISE</p>
           <h2>Da interface à operação.</h2>
         </div>
         <div className="skillGrid">
-          {skills.map((skill) => <span key={skill}>{skill}</span>)}
+          {skills.map((skill, index) => (
+            <span
+              key={skill}
+              className="reveal reveal-up"
+              data-reveal
+              style={delay(index * 45)}
+            >
+              {skill}
+            </span>
+          ))}
         </div>
       </section>
 
       <section id="about" className="shell section about">
-        <div>
+        <div className="reveal reveal-left" data-reveal>
           <p className="eyebrow">ABOUT</p>
           <h2>Software com visão de produto.</h2>
         </div>
-        <div className="aboutCopy">
+        <div className="aboutCopy reveal reveal-right" data-reveal style={delay(100)}>
           <p>
             Minha base profissional também inclui infraestrutura corporativa,
             redes, Microsoft 365 e automação. Isso influencia como penso
@@ -153,7 +195,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="shell contact">
+      <section id="contact" className="shell contact reveal reveal-up" data-reveal>
         <p className="eyebrow">CONTACT</p>
         <h2>Quer construir algo que precisa funcionar de verdade?</h2>
         <div className="actions">
@@ -162,7 +204,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="shell">
+      <footer className="shell reveal reveal-up" data-reveal>
         <span>David Chocaliye</span>
         <span>Full Stack · Tech Lead · Product</span>
       </footer>
