@@ -83,8 +83,13 @@ a{color:inherit;text-decoration:none}
   justify-self:end;
 }
 .heroVisual img{
-  width:100%;height:min(58vh,560px);object-fit:cover;object-position:50% 42%;
-  border-radius:2px;filter:saturate(.88) contrast(1.04)
+  width:100%;
+  height:min(56vh,540px);
+  object-fit:cover;
+  object-position:52% 32%;
+  border-radius:0;
+  display:block;
+  filter:saturate(.92) contrast(1.03);
 }
 .heroCaption{
   display:flex;justify-content:space-between;gap:20px;
@@ -259,7 +264,10 @@ a{color:inherit;text-decoration:none}
   .heroBottom{gap:26px;max-width:34rem}
   .heroBottom p{font-size:1rem;line-height:1.75}
   .heroVisual{width:min(88vw,460px);justify-self:start}
-  .heroVisual img{height:min(58vh,520px)}
+  .heroVisual img{
+    height:min(52vh,480px);
+    object-position:52% 28%;
+  }
   .heroCaption{padding-top:12px;font-size:.66rem}
   .manifesto{grid-template-columns:1fr;gap:20px;min-height:auto;padding:100px 0}
   .workIntro{padding:95px 0 65px}
