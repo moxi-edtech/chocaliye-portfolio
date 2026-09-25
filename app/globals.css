@@ -155,7 +155,31 @@ a{color:inherit;text-decoration:none}
   line-height:.95;letter-spacing:-.052em
 }
 .projectDescription{color:var(--muted);font-size:1.08rem;line-height:1.75;max-width:550px}
-.projectStack{margin:30px 0;color:var(--subtle);font-size:.86rem;line-height:1.7}
+.projectFacts{
+  margin:34px 0 30px;
+  border-top:1px solid var(--border);
+}
+.projectFact{
+  display:grid;
+  grid-template-columns:104px minmax(0,1fr);
+  gap:22px;
+  padding:18px 0;
+  border-bottom:1px solid var(--border);
+}
+.projectFact span{
+  padding-top:3px;
+  color:var(--subtle);
+  font-size:.64rem;
+  font-weight:750;
+  letter-spacing:.14em;
+}
+.projectFact p{
+  margin:0;
+  color:var(--muted);
+  font-size:.92rem;
+  line-height:1.62;
+}
+.projectStack{margin:0 0 26px;color:var(--subtle);font-size:.8rem;line-height:1.7}
 .projectLink{
   display:inline-flex;
   color:var(--accent);
@@ -416,6 +440,11 @@ a{color:inherit;text-decoration:none}
   .workIntro{padding:95px 0 65px}
   .projectStory{min-height:auto;padding:90px 0}
   .projectMeta h3{font-size:clamp(2.6rem,12vw,4.2rem)}
+  .projectFact{
+    grid-template-columns:1fr;
+    gap:8px;
+    padding:16px 0;
+  }
   .projectCanvas{height:260px}
   .projectCanvas iframe{width:1200px;height:760px;transform:scale(.28)}
   .statementTrack{min-height:100px;animation-duration:19s}
