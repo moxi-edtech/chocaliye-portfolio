@@ -230,10 +230,83 @@ a{color:inherit;text-decoration:none}
 }
 .contactLinks a:hover{color:var(--accent);border-color:var(--accent)}
 
-.footer{
-  display:flex;justify-content:space-between;gap:24px;
-  padding:32px 0 48px;border-top:1px solid var(--border);
-  color:var(--subtle);font-size:.78rem
+.siteFooter{
+  border-top:1px solid var(--border);
+  background:var(--bg);
+}
+
+.footerGrid{
+  display:grid;
+  grid-template-columns:minmax(280px,1.4fr) repeat(3,minmax(140px,.6fr));
+  gap:64px;
+  padding:78px 0 64px;
+}
+
+.footerIntro{
+  max-width:420px;
+}
+
+.footerBrand{
+  display:inline-block;
+  margin-bottom:18px;
+  color:var(--text);
+  font-size:1.45rem;
+  font-weight:800;
+  letter-spacing:-.035em;
+}
+
+.footerIntro p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.75;
+  font-size:.96rem;
+}
+
+.footerColumn{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+.footerColumn a{
+  transition:color .18s ease;
+}
+
+.footerColumn a:hover{
+  color:var(--text);
+}
+
+.footerLabel{
+  margin-bottom:8px;
+  color:var(--subtle);
+  font-size:.66rem;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+
+.footerMeta span:not(.footerLabel){
+  line-height:1.6;
+}
+
+.footerBottom{
+  display:flex;
+  justify-content:space-between;
+  gap:24px;
+  padding:24px 0 34px;
+  border-top:1px solid var(--border);
+  color:var(--subtle);
+  font-size:.76rem;
+}
+
+.footerBottom a{
+  transition:color .18s ease;
+}
+
+.footerBottom a:hover{
+  color:var(--text);
 }
 
 /* motion */
@@ -304,7 +377,18 @@ a{color:inherit;text-decoration:none}
   .aboutGrid{padding:100px 0}
   .contactStage{min-height:75svh}
   .contactInner h2{font-size:clamp(3.8rem,17vw,6.8rem)}
-  .footer{flex-direction:column}
+  .footerGrid{
+    grid-template-columns:1fr 1fr;
+    gap:42px 28px;
+    padding:64px 0 48px;
+  }
+  .footerIntro{
+    grid-column:1 / -1;
+  }
+  .footerBottom{
+    flex-direction:column;
+    gap:10px;
+  }
   .reveal-left,.reveal-right{transform:translate3d(0,26px,0)}
 }
 
@@ -354,4 +438,14 @@ a{color:inherit;text-decoration:none}
 @media(max-width:800px){
   .topbarRight{gap:14px}
   .languageSwitch{font-size:.68rem}
+}
+
+
+@media(max-width:560px){
+  .footerGrid{
+    grid-template-columns:1fr;
+  }
+  .footerIntro{
+    grid-column:auto;
+  }
 }
