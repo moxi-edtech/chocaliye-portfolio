@@ -8,7 +8,7 @@ const copy = {
   pt: {
     nav: { work: "Projetos", expertise: "Especialidades", about: "Sobre", contact: "Contato" },
     hero: {
-      eyebrow: "DESENVOLVEDOR FULL STACK · PRODUCT ENGINEER",
+      eyebrow: "Desenvolvedor Full Stack · Product Engineer",
       title: "Construo software para",
       titleAccent: " operação real.",
       body: "SaaS, sistemas multi-tenant, infraestrutura e produtos com IA — pensados para funcionar no dia a dia, não apenas numa demonstração.",
@@ -24,23 +24,23 @@ const copy = {
       title: "Produtos em operação.",
       open: "Ver projeto",
       view: "Ver site",
-      problem: "PROBLEMA",
-      build: "CONSTRUÇÃO",
-      architecture: "ARQUITETURA",
+      problem: "Problema",
+      build: "Construção",
+      architecture: "Arquitetura",
     },
     expertise: {
-      eyebrow: "ESPECIALIDADES",
+      eyebrow: "Especialidades",
       title: "Da interface à infraestrutura.",
     },
     about: {
-      eyebrow: "SOBRE",
-      title: "Penso software como parte da operação do negócio.",
-      big: "Produto, infraestrutura, segurança e operação não são assuntos separados.",
-      p1: "Minha experiência entre software e infraestrutura corporativa influencia como construo: autenticação, observabilidade, limites de dados, deploy e manutenção fazem parte do produto desde o início.",
-      p2: "Também atuo em decisões de interface, comunicação de produto e execução de go-to-market — porque software só gera valor quando as pessoas conseguem entender, adotar e operar.",
+      eyebrow: "Sobre",
+      title: "Gosto de construir perto do problema.",
+      big: "Não separo produto, infraestrutura e operação quando estou construindo software.",
+      p1: "Minha experiência em desenvolvimento e infraestrutura corporativa me levou a olhar cedo para autenticação, dados, deploy, observabilidade e manutenção — não como acabamento, mas como parte do produto.",
+      p2: "Também participo das decisões de interface e de como o produto chega ao mercado. Para mim, construir termina quando a solução consegue ser entendida, usada e mantida.",
     },
     contact: {
-      eyebrow: "CONTATO",
+      eyebrow: "Contato",
       first: "Tem algo",
       second: " que vale a pena construir?",
       email: "E-mail",
@@ -50,7 +50,7 @@ const copy = {
   en: {
     nav: { work: "Work", expertise: "Expertise", about: "About", contact: "Contact" },
     hero: {
-      eyebrow: "FULL STACK DEVELOPER · PRODUCT ENGINEER",
+      eyebrow: "Full Stack Developer · Product Engineer",
       title: "I build software for",
       titleAccent: " real operations.",
       body: "SaaS, multi-tenant systems, infrastructure and AI products — designed to work in day-to-day operations, not just in a demo.",
@@ -66,23 +66,23 @@ const copy = {
       title: "Products in operation.",
       open: "View project",
       view: "View site",
-      problem: "PROBLEM",
-      build: "BUILD",
-      architecture: "ARCHITECTURE",
+      problem: "Problem",
+      build: "Build",
+      architecture: "Architecture",
     },
     expertise: {
-      eyebrow: "EXPERTISE",
+      eyebrow: "Expertise",
       title: "From interface to infrastructure.",
     },
     about: {
-      eyebrow: "ABOUT",
-      title: "I think about software as part of business operations.",
-      big: "Product, infrastructure, security and operations are not separate concerns.",
-      p1: "My background across software and corporate infrastructure shapes how I build: authentication, observability, data boundaries, deployment and maintenance are part of the product from day one.",
-      p2: "I also work across interface decisions, product communication and go-to-market execution — because software only creates value when people can understand, adopt and operate it.",
+      eyebrow: "About",
+      title: "I like building close to the problem.",
+      big: "I do not separate product, infrastructure and operations when building software.",
+      p1: "My background in development and corporate infrastructure pushed me to think early about authentication, data, deployment, observability and maintenance — not as finishing work, but as part of the product.",
+      p2: "I also take part in interface decisions and how a product reaches the market. For me, the build is complete when the solution can be understood, used and maintained.",
     },
     contact: {
-      eyebrow: "GET IN TOUCH",
+      eyebrow: "Get in touch",
       first: "Have something",
       second: " worth building?",
       email: "Email",
@@ -178,6 +178,44 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let frame = 0;
+    const root = document.documentElement;
+    const titles = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-title]"));
+
+    const update = () => {
+      frame = 0;
+      const scrollY = window.scrollY;
+      root.style.setProperty("--hero-photo-y", `${Math.min(scrollY * 0.045, 30)}px`);
+      root.style.setProperty("--hero-title-y", `${Math.min(scrollY * -0.018, 0)}px`);
+
+      titles.forEach(title => {
+        const rect = title.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const viewportCenter = window.innerHeight / 2;
+        const distance = (center - viewportCenter) / window.innerHeight;
+        const shift = Math.max(-16, Math.min(16, distance * -18));
+        title.style.setProperty("--title-shift", `${shift}px`);
+      });
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
     <main>
       <header className="topbar shell">
@@ -246,7 +284,7 @@ export default function Home() {
       <section id="work" className="work">
         <div className="shell workIntro reveal reveal-up" data-reveal>
           <p className="eyebrow">{t.work.eyebrow}</p>
-          <h2>{t.work.title}</h2>
+          <h2 data-scroll-title>{t.work.title}</h2>
         </div>
 
         {projects[locale].map((project, index) => (
@@ -324,7 +362,7 @@ export default function Home() {
       <section id="expertise" className="shell expertiseSection">
         <div className="expertiseLead reveal reveal-up" data-reveal>
           <p className="eyebrow">{t.expertise.eyebrow}</p>
-          <h2>{t.expertise.title}</h2>
+          <h2 data-scroll-title>{t.expertise.title}</h2>
         </div>
 
         <div className="expertiseGrid">
@@ -342,7 +380,7 @@ export default function Home() {
         <div className="shell aboutGrid">
           <div className="aboutSticky reveal reveal-left" data-reveal>
             <p className="eyebrow">{t.about.eyebrow}</p>
-            <h2>{t.about.title}</h2>
+            <h2 data-scroll-title>{t.about.title}</h2>
           </div>
 
           <div className="aboutFlow reveal reveal-right" data-reveal>
@@ -356,7 +394,7 @@ export default function Home() {
       <section id="contact" className="contactStage">
         <div className="shell contactInner reveal reveal-up" data-reveal>
           <p className="eyebrow">{t.contact.eyebrow}</p>
-          <h2>
+          <h2 data-scroll-title>
             {t.contact.first}
             <span>{t.contact.second}</span>
           </h2>
@@ -372,44 +410,29 @@ export default function Home() {
       </section>
 
       <footer className="siteFooter">
-        <div className="shell footerGrid">
-          <div className="footerIntro">
+        <div className="shell footerSignature">
+          <div className="footerSignatureMain">
             <a className="footerBrand" href="#">David Chocaliye</a>
             <p>
               {locale === "pt"
-                ? "Desenvolvimento de produtos digitais, SaaS, infraestrutura e automação com IA."
-                : "Digital products, SaaS, infrastructure and AI automation."}
+                ? "Construído por David Chocaliye · Next.js · 2026"
+                : "Built by David Chocaliye · Next.js · 2026"}
             </p>
           </div>
 
-          <div className="footerColumn">
-            <span className="footerLabel">{locale === "pt" ? "NAVEGAÇÃO" : "NAVIGATION"}</span>
-            <a href="#work">{t.nav.work}</a>
-            <a href="#expertise">{t.nav.expertise}</a>
-            <a href="#about">{t.nav.about}</a>
-            <a href="#contact">{t.nav.contact}</a>
-          </div>
-
-          <div className="footerColumn">
-            <span className="footerLabel">{locale === "pt" ? "CONTATO" : "CONTACT"}</span>
-            <a href="mailto:katanhaboutjob@gmail.com">katanhaboutjob@gmail.com</a>
-            <a href="https://wa.me/5519981682877" target="_blank" rel="noreferrer">+55 19 98168-2877</a>
+          <div className="footerSocials">
+            <a href="mailto:katanhaboutjob@gmail.com">{t.contact.email}</a>
+            <a href="https://wa.me/5519981682877" target="_blank" rel="noreferrer">WhatsApp</a>
             <a href="https://linkedin.com/in/david-chocaliye-214429210" target="_blank" rel="noreferrer">LinkedIn</a>
             <a href="https://github.com/moxi-edtech" target="_blank" rel="noreferrer">GitHub</a>
             <a href="https://www.instagram.com/katanhadavid" target="_blank" rel="noreferrer">Instagram</a>
             <a href="https://www.threads.com/@katanhadavid" target="_blank" rel="noreferrer">Threads</a>
           </div>
-
-          <div className="footerColumn footerMeta">
-            <span className="footerLabel">{locale === "pt" ? "BASE" : "BASED IN"}</span>
-            <span>São Paulo · Brasil</span>
-            <span>{t.footer}</span>
-          </div>
         </div>
 
         <div className="shell footerBottom">
-          <span>© 2026 David Chocaliye</span>
-          <a href="#">Voltar ao topo</a>
+          <span>© 2026</span>
+          <a href="#">{locale === "pt" ? "Voltar ao topo" : "Back to top"}</a>
         </div>
       </footer>
     </main>
