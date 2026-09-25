@@ -99,3 +99,110 @@ footer { display: flex; justify-content: space-between; padding: 32px 0 48px; bo
   .shell { width: min(100% - 28px, 1180px); }
   footer { flex-direction: column; gap: 16px; }
 }
+
+
+/* Motion system */
+@keyframes heroRise {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes heroSlide {
+  from { opacity: 0; transform: translate3d(28px, 0, 0) scale(.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+.hero-enter {
+  opacity: 0;
+  animation: heroRise 760ms cubic-bezier(.22, 1, .36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.hero-enter-1 { animation-delay: 60ms; }
+.hero-enter-2 { animation-delay: 150ms; }
+.hero-enter-3 { animation-delay: 230ms; }
+.hero-enter-4 { animation-delay: 330ms; }
+.hero-enter-5 { animation-delay: 430ms; }
+
+.hero-enter-photo {
+  animation-name: heroSlide;
+  animation-delay: 260ms;
+  animation-duration: 920ms;
+}
+
+.reveal {
+  --delay: 0ms;
+  opacity: 0;
+  transition:
+    opacity 720ms cubic-bezier(.22, 1, .36, 1) var(--delay),
+    transform 820ms cubic-bezier(.22, 1, .36, 1) var(--delay),
+    filter 720ms ease var(--delay);
+  will-change: transform, opacity;
+}
+
+.reveal-up { transform: translate3d(0, 28px, 0); }
+.reveal-left { transform: translate3d(-34px, 0, 0); }
+.reveal-right { transform: translate3d(34px, 0, 0); }
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.sitePreview.reveal {
+  filter: blur(4px);
+}
+
+.sitePreview.reveal.is-visible {
+  filter: blur(0);
+}
+
+.case {
+  transition:
+    background 220ms ease,
+    transform 220ms ease,
+    border-color 220ms ease;
+}
+
+.case:hover {
+  background: var(--surface-2);
+}
+
+.skillGrid span {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.skillGrid span:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-dim);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .hero-enter,
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .reveal-left,
+  .reveal-right {
+    transform: translate3d(0, 22px, 0);
+  }
+
+  .hero-enter-photo {
+    animation-name: heroRise;
+  }
+}
