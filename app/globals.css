@@ -52,8 +52,8 @@ a {
 }
 
 .hero {
-  min-height: 92vh;
-  padding: 28px 0 80px;
+  min-height: 94vh;
+  padding: 32px 0 96px;
   display: flex;
   flex-direction: column;
 }
@@ -84,7 +84,7 @@ nav {
 
 .navlinks {
   display: flex;
-  gap: 24px;
+  gap: 28px;
   color: var(--muted);
   font-size: 0.92rem;
 }
@@ -103,7 +103,7 @@ nav {
   margin: auto 0;
   display: grid;
   grid-template-columns: 1.7fr 0.7fr;
-  gap: 64px;
+  gap: 72px;
   align-items: end;
 }
 
@@ -116,7 +116,7 @@ nav {
 
 .hero h1 {
   max-width: 900px;
-  margin: 18px 0 28px;
+  margin: 22px 0 34px;
   font-size: clamp(3rem, 8vw, 7rem);
   line-height: 0.94;
   letter-spacing: -0.06em;
@@ -126,13 +126,13 @@ nav {
   max-width: 720px;
   color: var(--muted);
   font-size: 1.15rem;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 .actions {
   display: flex;
-  gap: 12px;
-  margin-top: 32px;
+  gap: 14px;
+  margin-top: 38px;
 }
 
 .primary,
@@ -170,28 +170,28 @@ nav {
 }
 
 .signal {
-  padding-left: 24px;
+  padding-left: 28px;
   border-left: 1px solid var(--accent-dim);
   color: var(--muted);
 }
 
 .signal strong {
   display: block;
-  margin: 8px 0;
+  margin: 10px 0;
   color: var(--text);
   font-size: 1.3rem;
 }
 
 .section {
-  padding: 100px 0;
+  padding: 116px 0;
   border-top: 1px solid var(--border);
 }
 
 .sectionHead {
   display: grid;
   grid-template-columns: 0.7fr 2fr;
-  gap: 40px;
-  margin-bottom: 50px;
+  gap: 48px;
+  margin-bottom: 64px;
 }
 
 .section h2,
@@ -214,8 +214,8 @@ nav {
 .case {
   display: grid;
   grid-template-columns: 80px 1fr;
-  gap: 24px;
-  padding: 34px;
+  gap: 32px;
+  padding: 44px;
   background: var(--surface);
 }
 
@@ -225,18 +225,19 @@ nav {
 }
 
 .case h3 {
-  margin: 6px 0 14px;
+  margin: 10px 0 18px;
   font-size: 2rem;
 }
 
 .case p {
   max-width: 760px;
+  margin: 0;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 .stack {
-  margin: 20px 0;
+  margin: 26px 0 24px;
   color: var(--subtle);
   font-size: 0.9rem;
 }
@@ -249,11 +250,11 @@ nav {
 .skillGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 
 .skillGrid span {
-  padding: 11px 14px;
+  padding: 12px 15px;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--surface);
@@ -263,28 +264,36 @@ nav {
 .about {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
-  gap: 80px;
+  gap: 96px;
 }
 
 .aboutCopy {
   color: var(--muted);
   font-size: 1.12rem;
-  line-height: 1.8;
+  line-height: 1.9;
+}
+
+.aboutCopy p {
+  margin: 0 0 24px;
+}
+
+.aboutCopy p:last-child {
+  margin-bottom: 0;
 }
 
 .contact {
-  padding: 120px 0;
+  padding: 140px 0;
 }
 
 .contact h2 {
   max-width: 900px;
-  margin-top: 14px;
+  margin-top: 18px;
 }
 
 footer {
   display: flex;
   justify-content: space-between;
-  padding: 28px 0 44px;
+  padding: 32px 0 48px;
   border-top: 1px solid var(--border);
   color: var(--subtle);
   font-size: 0.86rem;
@@ -306,11 +315,14 @@ footer {
   }
 
   .hero {
-    min-height: 86vh;
+    min-height: 88vh;
+    padding-bottom: 72px;
   }
 
   .case {
     grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 30px 24px;
   }
 
   .caseIndex {
@@ -318,7 +330,20 @@ footer {
   }
 
   .section {
-    padding: 74px 0;
+    padding: 82px 0;
+  }
+
+  .sectionHead {
+    gap: 24px;
+    margin-bottom: 42px;
+  }
+
+  .about {
+    gap: 40px;
+  }
+
+  .contact {
+    padding: 96px 0;
   }
 
   .shell {
