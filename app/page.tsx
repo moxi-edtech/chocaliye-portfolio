@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ScrollIndicator } from "./components/ScrollIndicator";
+import { WeightShiftText } from "./components/WeightShiftText";
 
 type Locale = "pt" | "en";
 
@@ -164,6 +166,12 @@ const skills = {
 export default function Home() {
   const [locale, setLocale] = useState<Locale>("pt");
   const t = copy[locale];
+  const scrollSections = [
+    { id: "work", label: t.nav.work },
+    { id: "expertise", label: t.nav.expertise },
+    { id: "about", label: t.nav.about },
+    { id: "contact", label: t.nav.contact },
+  ] as const;
 
   useEffect(() => {
     document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
@@ -227,10 +235,10 @@ export default function Home() {
 
         <div className="topbarRight">
           <nav className="navlinks">
-            <a href="#work">{t.nav.work}</a>
-            <a href="#expertise">{t.nav.expertise}</a>
-            <a href="#about">{t.nav.about}</a>
-            <a href="#contact">{t.nav.contact}</a>
+            <a href="#work"><WeightShiftText>{t.nav.work}</WeightShiftText></a>
+            <a href="#expertise"><WeightShiftText>{t.nav.expertise}</WeightShiftText></a>
+            <a href="#about"><WeightShiftText>{t.nav.about}</WeightShiftText></a>
+            <a href="#contact"><WeightShiftText>{t.nav.contact}</WeightShiftText></a>
           </nav>
 
           <div className="languageSwitch" aria-label="Selecionar idioma">
@@ -255,6 +263,8 @@ export default function Home() {
         </div>
       </header>
 
+      <ScrollIndicator sections={scrollSections} />
+
       <section className="hero shell">
         <div className="heroStatement">
           <p className="eyebrow hero-enter hero-enter-1">{t.hero.eyebrow}</p>
@@ -264,7 +274,7 @@ export default function Home() {
           </h1>
           <div className="heroBottom hero-enter hero-enter-3">
             <p>{t.hero.body}</p>
-            <a href="#work">{t.hero.cta}</a>
+            <a href="#work"><WeightShiftText>{t.hero.cta}</WeightShiftText></a>
           </div>
         </div>
 
@@ -331,7 +341,7 @@ export default function Home() {
                   </div>
                 </details>
                 <a className="projectLink" href={project.href} target="_blank" rel="noreferrer">
-                  {t.work.open}
+                  <WeightShiftText>{t.work.open}</WeightShiftText>
                 </a>
               </div>
 
