@@ -9,7 +9,7 @@ type Locale = "pt" | "en";
 
 const copy = {
   pt: {
-    nav: { work: "Projetos", expertise: "Especialidades", about: "Sobre", contact: "Contato" },
+    nav: { work: "Projetos", expertise: "Meu arsenal", about: "Sobre", contact: "Contato" },
     hero: {
       eyebrow: "Desenvolvedor Full Stack · Product Engineer",
       title: "Construo software para",
@@ -34,8 +34,9 @@ const copy = {
       stack: "Stack",
     },
     expertise: {
-      eyebrow: "Especialidades",
-      title: "Da interface à infraestrutura.",
+      eyebrow: "MEU ARSENAL",
+      title: "As ferramentas que levo da ideia à produção.",
+      lead: "Tecnologias que uso no trabalho real — produto, dados, automação e infraestrutura.",
     },
     about: {
       eyebrow: "Sobre",
@@ -53,7 +54,7 @@ const copy = {
     footer: "Full Stack · Product Engineering · IA",
   },
   en: {
-    nav: { work: "Work", expertise: "Expertise", about: "About", contact: "Contact" },
+    nav: { work: "Work", expertise: "My toolkit", about: "About", contact: "Contact" },
     hero: {
       eyebrow: "Full Stack Developer · Product Engineer",
       title: "I build software for",
@@ -78,8 +79,9 @@ const copy = {
       stack: "Stack",
     },
     expertise: {
-      eyebrow: "Expertise",
-      title: "From interface to infrastructure.",
+      eyebrow: "MY TOOLKIT",
+      title: "The tools I take from idea to production.",
+      lead: "Technologies I use in real work — product, data, automation and infrastructure.",
     },
     about: {
       eyebrow: "About",
@@ -151,16 +153,48 @@ const projects = {
 
 const skills = {
   pt: [
-    ["PRODUCT ENGINEERING", "Next.js · React · TypeScript · Arquitetura de produto"],
-    ["DADOS & SEGURANÇA", "PostgreSQL · Supabase · RLS · RBAC · Multi-tenancy"],
-    ["IA & AUTOMAÇÃO", "OpenAI API · Agentes · Automação de fluxos · WhatsApp"],
-    ["INFRAESTRUTURA", "Vercel · Cloudflare · Microsoft 365 · Redes"],
+    {
+      title: "Produto",
+      note: "Construção de produto e interface",
+      tools: ["Next.js", "React", "TypeScript", "UX", "Arquitetura de produto"],
+    },
+    {
+      title: "Dados & Segurança",
+      note: "Estrutura, acesso e isolamento",
+      tools: ["PostgreSQL", "Supabase", "RLS", "RBAC", "Multi-tenancy"],
+    },
+    {
+      title: "IA & Automação",
+      note: "Fluxos que reduzem trabalho manual",
+      tools: ["APIs de IA", "Agentes", "Automação de fluxos", "WhatsApp"],
+    },
+    {
+      title: "Infraestrutura",
+      note: "Entrega, operação e ambiente corporativo",
+      tools: ["Vercel", "Cloudflare", "Microsoft 365", "Redes"],
+    },
   ],
   en: [
-    ["PRODUCT ENGINEERING", "Next.js · React · TypeScript · Product architecture"],
-    ["DATA & SECURITY", "PostgreSQL · Supabase · RLS · RBAC · Multi-tenancy"],
-    ["AI & AUTOMATION", "OpenAI API · Agents · Workflow automation · WhatsApp"],
-    ["INFRASTRUCTURE", "Vercel · Cloudflare · Microsoft 365 · Networking"],
+    {
+      title: "Product",
+      note: "Product and interface engineering",
+      tools: ["Next.js", "React", "TypeScript", "UX", "Product architecture"],
+    },
+    {
+      title: "Data & Security",
+      note: "Structure, access and isolation",
+      tools: ["PostgreSQL", "Supabase", "RLS", "RBAC", "Multi-tenancy"],
+    },
+    {
+      title: "AI & Automation",
+      note: "Flows that reduce manual work",
+      tools: ["AI APIs", "Agents", "Workflow automation", "WhatsApp"],
+    },
+    {
+      title: "Infrastructure",
+      note: "Delivery, operations and enterprise environments",
+      tools: ["Vercel", "Cloudflare", "Microsoft 365", "Networking"],
+    },
   ],
 } as const;
 
@@ -395,20 +429,32 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="expertise" className="shell expertiseSection">
-        <div className="expertiseLead reveal reveal-up" data-reveal>
-          <p className="eyebrow">{t.expertise.eyebrow}</p>
-          <h2 data-scroll-title>{t.expertise.title}</h2>
-        </div>
+      <section id="expertise" className="arsenalSection">
+        <div className="shell">
+          <div className="arsenalLead reveal reveal-up" data-reveal>
+            <p className="eyebrow">{t.expertise.eyebrow}</p>
+            <div className="arsenalLeadGrid">
+              <h2 data-scroll-title>{t.expertise.title}</h2>
+              <p>{t.expertise.lead}</p>
+            </div>
+          </div>
 
-        <div className="expertiseGrid">
-          {skills[locale].map(([title, text], index) => (
-            <article className="expertiseItem reveal reveal-up" data-reveal key={title}>
-              <span>0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </article>
-          ))}
+          <div className="arsenalList">
+            {skills[locale].map((group, index) => (
+              <article className="arsenalRow reveal reveal-up" data-reveal key={group.title}>
+                <p className="arsenalIndex">0{index + 1}</p>
+                <div className="arsenalMeta">
+                  <h3>{group.title}</h3>
+                  <p>{group.note}</p>
+                </div>
+                <div className="arsenalTools" aria-label={group.title}>
+                  {group.tools.map(tool => (
+                    <span key={tool}>{tool}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
