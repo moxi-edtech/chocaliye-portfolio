@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { ScrollIndicator } from "./components/ScrollIndicator";
 import { WeightShiftText } from "./components/WeightShiftText";
 
@@ -15,7 +16,7 @@ const copy = {
       titleAccent: " operação real.",
       body: "SaaS, sistemas multi-tenant, infraestrutura e produtos com IA — pensados para funcionar no dia a dia, não apenas numa demonstração.",
       cta: "Ver projetos",
-      location: "São Paulo · Brasil",
+      location: "Produto · Engenharia · Software",
     },
     manifesto: {
       first: "IA acelera a construção.",
@@ -59,7 +60,7 @@ const copy = {
       titleAccent: " real operations.",
       body: "SaaS, multi-tenant systems, infrastructure and AI products — designed to work in day-to-day operations, not just in a demo.",
       cta: "Explore selected work",
-      location: "São Paulo · Brazil",
+      location: "Product · Engineering · Software",
     },
     manifesto: {
       first: "AI accelerates the build.",
@@ -173,6 +174,13 @@ export default function Home() {
     { id: "contact", label: t.nav.contact },
   ] as const;
 
+  const reduceMotion = useReducedMotion();
+  const { scrollY } = useScroll();
+  const titleYTarget = useTransform(scrollY, [0, 900], [0, -16], { clamp: true });
+  const photoYTarget = useTransform(scrollY, [0, 900], [0, 30], { clamp: true });
+  const titleY = useSpring(titleYTarget, { stiffness: 150, damping: 28, mass: 0.38 });
+  const photoY = useSpring(photoYTarget, { stiffness: 135, damping: 30, mass: 0.42 });
+
   useEffect(() => {
     document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
   }, [locale]);
@@ -194,14 +202,10 @@ export default function Home() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let frame = 0;
-    const root = document.documentElement;
     const titles = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-title]"));
 
     const update = () => {
       frame = 0;
-      const scrollY = window.scrollY;
-      root.style.setProperty("--hero-photo-y", `${Math.min(scrollY * 0.045, 30)}px`);
-      root.style.setProperty("--hero-title-y", `${Math.min(scrollY * -0.018, 0)}px`);
 
       titles.forEach(title => {
         const rect = title.getBoundingClientRect();
@@ -268,10 +272,12 @@ export default function Home() {
       <section className="hero shell">
         <div className="heroStatement">
           <p className="eyebrow hero-enter hero-enter-1">{t.hero.eyebrow}</p>
-          <h1 className="hero-enter hero-enter-2">
-            {t.hero.title}
-            <span>{t.hero.titleAccent}</span>
-          </h1>
+          <motion.div className="heroTitleMotion" style={{ y: reduceMotion ? 0 : titleY }}>
+            <h1 className="hero-enter hero-enter-2">
+              {t.hero.title}
+              <span>{t.hero.titleAccent}</span>
+            </h1>
+          </motion.div>
           <div className="heroBottom hero-enter hero-enter-3">
             <p>{t.hero.body}</p>
             <a href="#work"><WeightShiftText>{t.hero.cta}</WeightShiftText></a>
@@ -279,7 +285,9 @@ export default function Home() {
         </div>
 
         <div className="heroVisual hero-enter hero-enter-photo">
-          <img src="/david-hero-chair.webp" alt="David Chocaliye com um laptop" />
+          <motion.div className="heroPhotoMotion" style={{ y: reduceMotion ? 0 : photoY }}>
+            <img src="/david-hero-chair.webp" alt="David Chocaliye com um laptop" />
+          </motion.div>
           <div className="heroCaption">
             <span>David Chocaliye</span>
             <span>{t.hero.location}</span>
