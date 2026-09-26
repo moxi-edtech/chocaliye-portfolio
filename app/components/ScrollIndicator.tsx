@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
 
 type Section = {
@@ -7,8 +8,17 @@ type Section = {
   label: string;
 };
 
+const TRACK_HEIGHT = 214;
+
 export function ScrollIndicator({ sections }: { sections: readonly Section[] }) {
   const [active, setActive] = useState(0);
+  const reduceMotion = useReducedMotion();
+  const markerTarget = useMotionValue(0);
+  const markerY = useSpring(markerTarget, {
+    stiffness: reduceMotion ? 1000 : 290,
+    damping: reduceMotion ? 100 : 30,
+    mass: reduceMotion ? 0.1 : 0.42,
+  });
 
   useEffect(() => {
     const nodes = sections
@@ -48,6 +58,11 @@ export function ScrollIndicator({ sections }: { sections: readonly Section[] }) 
     };
   }, [sections]);
 
+  useEffect(() => {
+    const denominator = Math.max(sections.length - 1, 1);
+    markerTarget.set((active / denominator) * TRACK_HEIGHT);
+  }, [active, markerTarget, sections.length]);
+
   return (
     <nav className="scrollIndicator" aria-label="Navegação por seções">
       <div className="scrollIndicatorTrack">
@@ -74,9 +89,9 @@ export function ScrollIndicator({ sections }: { sections: readonly Section[] }) 
           ))}
         </div>
 
-        <span
+        <motion.span
           className="scrollMarker"
-          style={{ top: `${(active / Math.max(sections.length - 1, 1)) * 100}%` }}
+          style={{ y: reduceMotion ? (active / Math.max(sections.length - 1, 1)) * TRACK_HEIGHT : markerY }}
           aria-hidden="true"
         />
       </div>
