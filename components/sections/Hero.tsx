@@ -1,5 +1,6 @@
 import { Navbar } from "../layout/Navbar";
-import { heroImage } from "../../data/heroImage";
+
+const heroImage = "/david-hero-chair.webp";
 
 export function Hero() {
   return (
